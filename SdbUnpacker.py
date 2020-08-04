@@ -15,16 +15,16 @@ if __name__ == "__main__":
         with open(args.input, "rb") as fin:
             in_data = fin.read()
             if len(in_data) < 20:
-                print "Input file is too small"
+                print ("Input file is too small")
                 sys.exit(1)
 
             d = struct.unpack("<LLLLL", in_data[0 : 20])
     except:
-        print "Error reading input file"
+        print ("Error reading input file")
         sys.exit(1)
 
     if (d[2] != 0x6662647a):
-        print "Bad magic - not a compressed file"
+        print ("Bad magic - not a compressed file")
         sys.exit(1)
 
     try:
@@ -33,15 +33,14 @@ if __name__ == "__main__":
         decompressed = None
 
     if (decompressed == None or len(decompressed) != d[4]):
-        print "Error decompressing stream"
+        print ("Error decompressing stream")
         sys.exit(1)
 
     try:
         with open(args.output, "wb") as fout:
             fout.write(decompressed)
     except:
-        print "Error writing to output file"
+        print ("Error writing to output file")
         sys.exit(1)
 
-    print "Done!"
-
+    print ("Done!")
